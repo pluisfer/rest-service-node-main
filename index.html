@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="number" id="a" placeholder="Escriba primer numero" />
+    <br />
+    <input type="number" id="b" placeholder="Escribe el segundo numero" />
+    <br />
+    <input type="text" id="resultado" readonly />
+    <br />
+    <input type="button" value="sumar" onclick="sumar()" />
+    <script>
+      function sumar() {
+        let n1 = document.getElementById("a").value;
+        let n2 = document.getElementById("b").value;
+        fetch("/add", {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify({ a: n1, b: n2 }),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            document.getElementById("resultado").value = res.result;
+          });
+      }
+    </script>
+  </body>
+</html>
